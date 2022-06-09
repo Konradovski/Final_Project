@@ -14,12 +14,15 @@ class Ship {
     sf::Texture texture;
     float bulletcooldown;
     float currentbulletcooldown;
+    void createTexture();
 
+    void createSprite();
 int width;
 int height;
 int health;
 int damage;
 int currenthealth;
+float Ship_speed;
 public:
     Ship();
     ~Ship();
@@ -29,15 +32,16 @@ public:
     int getShipcurrentHealth() const;
     const bool canshoot();
     void hitme(int damage);
+
+    void move(const float posX, const float posY);
+
     void updatebullet();
 
     void update();
 
     void render(sf::RenderTarget& target);
 
-    void createTexture();
 
-    void createSprite();
 };
 
 

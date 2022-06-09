@@ -11,7 +11,9 @@
 
 class Board {
     sf::RenderWindow* window;
+    Ship* ship;
     void createWindow();
+    void createShip();
 public:
     Board();
     virtual ~Board();

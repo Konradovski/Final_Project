@@ -3,7 +3,7 @@
 #include "Board.h"
 
 int main() {
-    Ship A(NORMAL,10);
+    Ship A;
     Board Board;
     Board.play();
     std::cout<<A.getShipHealth()<<std::endl;

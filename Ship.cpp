@@ -3,18 +3,22 @@
 //
 
 #include "Ship.h"
-#include <iostream>
+
 void Ship::createTexture()
 {
-    //tu bedzie ladowanie texture
+    if(texture.loadFromFile("../Teksturki/ship.png"))
+    {
+        std::cout<<"brak pliku statku"<<std::endl;
+    }
 }
 void Ship::createSprite()
 {
     this->sprite.setTexture(this->texture);
-    // tu bedzie zmienianie textury
+    this->sprite.scale(0.15f, 0.15f);
 }
 Ship::Ship()
 {
+    Ship_speed=5.f;
     this->bulletcooldown=100;
     this->currentbulletcooldown=this->bulletcooldown;
     this->health=1000;
@@ -70,4 +74,8 @@ void Ship::update()
 void Ship::render(sf::RenderTarget& target)
 {
     target.draw(this->sprite);
+}
+
+void Ship::move(const float posX, const float posY) {
+    sprite.move(this->Ship_speed*posX, this->Ship_speed*posY);
 }

@@ -17,14 +17,18 @@ void Board::play()
         this->render();
     }
 }
-
+void Board::createShip() {
+    this->ship= new Ship();
+}
 Board::Board()
 {
     createWindow();
+    createShip();
 }
 Board::~Board()
 {
     delete this->window;
+    delete this->ship;
 }
 void Board::update()
 {
@@ -38,13 +42,21 @@ void Board::update()
             window->close();
         }
     }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        this->ship->move(0.f, -1.f);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+        this->ship->move(0.f, 1.f);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+        this->ship->move(-1.f, 0.f);
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+        this->ship->move(1.f, 0.f);
 }
 
 void Board::render()
 {
     this->window->clear();
 
-
+    this->ship->render(*this->window);
 
     this->window->display();
 }

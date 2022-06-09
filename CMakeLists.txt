@@ -35,5 +35,5 @@ endif(WIN32)
 
 find_package(SFML 2 COMPONENTS graphics audio REQUIRED)
 
-add_executable(Space_shooter main.cpp Ship.cpp Ship.h Board.cpp Board.h)
+add_executable(Space_shooter main.cpp Ship.cpp Ship.h Board.cpp Board.h Ammo.cpp Ammo.h)
 target_link_libraries(Space_shooter sfml-graphics sfml-audio)
