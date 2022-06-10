@@ -6,9 +6,9 @@
 
 void Ship::createTexture()
 {
-    if(texture.loadFromFile("../Teksturki/ship.png"))
+    if(texture.loadFromFile("../textures/ship.png"))
     {
-        std::cout<<"brak pliku statku"<<std::endl;
+        //std::cout<<"brak pliku statku"<<std::endl;
     }
 }
 void Ship::createSprite()
@@ -29,6 +29,7 @@ Ship::Ship()
 }
 Ship::~Ship()
 {
+    health=10;
 
 }
 int Ship::getShipHeight() const
