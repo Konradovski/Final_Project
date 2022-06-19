@@ -1,11 +1,12 @@
 #include <iostream>
-#include "Ship.h"
 #include "Board.h"
+#include <time.h>
+
 
 int main() {
-    Ship A;
+
+    srand(static_cast<unsigned int>(time(0)));
     Board Board;
     Board.play();
-    std::cout<<A.getShipHealth()<<std::endl;
     return 0;
 }

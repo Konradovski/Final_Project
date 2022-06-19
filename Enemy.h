@@ -1,24 +1,31 @@
 //
-// Created by c on 6/10/22.
+// Created by Konrad on 6/10/22.
 //
 
 #ifndef SPACE_SHOOTER_ENEMY_H
 #define SPACE_SHOOTER_ENEMY_H
 
-
+#include<SFML/Graphics.hpp>
 class Enemy {
-int e_currenthealth;
-int e_health;
-
+int exp;
+sf::Texture enemy;
+sf::Sprite enemy_1;
+float dropspeed;
+void createTexture();
+void createSprite();
 public:
-    Enemy();
+    Enemy(float pos_X,float pos_Y);
+
     ~Enemy();
+
     void update();
-    void render();
 
-    int getEnemyHealth() const;
+    void render(sf::RenderTarget* target);
 
-    int getEnemycurrentHealth() const;
+    const sf::FloatRect Boundaries() const;
+
+    int Expcounter() const;
+
 };
 
 

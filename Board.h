@@ -6,20 +6,49 @@
 #define MAIN_CPP_BOARD_H
 
 #include "Ship.h"
-#include<SFML/Graphics.hpp>
-#include<SFML/System.hpp>
+#include "Ammo.h"
+#include "Enemy.h"
+#include <string>
+#include<sstream>
 
 class Board {
+    sf::Texture Background;
+    sf::Font font;
+    sf::Text tekst;
+    sf::Text durability;
+    sf::RectangleShape currenthealth;
+    sf::RectangleShape health;
+    sf::Text Defeat;
+    float CurrentSpawnerTimer;
+    float SpawnerTimer;
     sf::RenderWindow* window;
     Ship* ship;
+    int exp;
+    std::vector<Enemy*> enemies;
     void createWindow();
     void createShip();
+    void createTextures();
+    void interface();
+    void pointcounter();
+
+    sf::Texture* textures;
+    std::vector<Ammo*> ammo;
+    void Stars();
+
 public:
     Board();
+
     virtual ~Board();
+
     void play();
+
     void render();
+
     void update();
+
+    void Enemies();
+
+    void createEnemy();
 };
 
 

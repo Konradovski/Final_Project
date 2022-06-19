@@ -14,8 +14,10 @@ class Ammo {
     float Bulletspeed;
 public:
     Ammo();
-    Ammo(sf::Texture& texture, float pos_X, float pos_Y, float Bullet_speed);
+    Ammo(sf::Texture* texture,float pos_X, float pos_Y, float move_x, float move_y, float Bullet_speed);
     virtual ~Ammo();
+
+    const sf::FloatRect Boundaries() const;
 
     void update();
     void render(sf::RenderTarget *target);

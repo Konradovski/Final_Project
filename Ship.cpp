@@ -1,62 +1,53 @@
 //
-// Created by c on 5/27/22.
+// Created by Konrad on 5/27/22.
 //
 
 #include "Ship.h"
 
 void Ship::createTexture()
 {
-    if(texture.loadFromFile("../textures/ship.png"))
+    if(texture.loadFromFile("../teksturki/ship_1.png"))
     {
         //std::cout<<"brak pliku statku"<<std::endl;
     }
 }
 void Ship::createSprite()
 {
-    this->sprite.setTexture(this->texture);
-    this->sprite.scale(0.15f, 0.15f);
+    sprite.setTexture(this->texture);
+    sprite.scale(1.5f, 1.5f);
+    sprite.setPosition(900,800);
 }
 Ship::Ship()
 {
-    Ship_speed=5.f;
-    this->bulletcooldown=100;
-    this->currentbulletcooldown=this->bulletcooldown;
-    this->health=1000;
-    this->currenthealth=this->health;
-    this->mode=mode;
-    this->createTexture();
-    this->createSprite();
+    Ship_speed=7.5f;
+    bulletcooldown=50;
+    currentbulletcooldown=this->bulletcooldown;
+    health=100;
+    currenthealth=this->health;
+    createTexture();
+    createSprite();
 }
 Ship::~Ship()
 {
-    health=10;
+}
 
-}
-int Ship::getShipHeight() const
+float Ship::getShipHealth() const
 {
-    return height;
+    return health;
 }
-int Ship::getShipWidth() const
+float Ship::getShipcurrentHealth() const
 {
-    return width;
-}
-int Ship::getShipHealth() const
-{
-    return this->health;
-}
-int Ship::getShipcurrentHealth() const
-{
-    return this->currenthealth;
+    return currenthealth;
 }
 void Ship::hitme(int damage)
 {
-    this->health -= damage;
-    if(this->health<=0)
-        this->health=0;
+    currenthealth -= damage;
+    if(currenthealth<=0)
+        currenthealth=0;
 }
 const bool Ship::canshoot()
 {
-    if(this->currentbulletcooldown>=this->bulletcooldown)
+    if(currentbulletcooldown>=bulletcooldown)
     {
         this->currentbulletcooldown=0;
         return true;
@@ -65,8 +56,8 @@ const bool Ship::canshoot()
 }
 void Ship::updatebullet()
 {
-    if(this->currentbulletcooldown<this->bulletcooldown)
-        this->currentbulletcooldown += 25;
+    if(currentbulletcooldown<bulletcooldown)
+        currentbulletcooldown += 1;
 }
 void Ship::update()
 {
@@ -74,9 +65,19 @@ void Ship::update()
 }
 void Ship::render(sf::RenderTarget& target)
 {
-    target.draw(this->sprite);
+    target.draw(sprite);
+}
+void Ship::move(const float posX, const float posY) {
+    sprite.move(Ship_speed*posX, Ship_speed*posY);
+}
+const sf::Vector2f & Ship::getPosition() const {
+    return sprite.getPosition();
+}
+const sf::FloatRect Ship::Boundaries() const {
+    return sprite.getGlobalBounds();
 }
 
-void Ship::move(const float posX, const float posY) {
-    sprite.move(this->Ship_speed*posX, this->Ship_speed*posY);
+void Ship::setPos(const float x, const float y) {
+    sprite.setPosition(x,y);
 }
+
