@@ -15,6 +15,10 @@ class Board {
     sf::Texture Background;
     sf::Font font;
     sf::Text tekst;
+    sf::Text LEVEL;
+    sf::Text Speed;
+    sf::Text Cd;
+    sf::Text Title;
     sf::Text durability;
     sf::RectangleShape currenthealth;
     sf::RectangleShape health;
@@ -24,6 +28,9 @@ class Board {
     sf::RenderWindow* window;
     Ship* ship;
     int exp;
+    int level;
+
+
     std::vector<Enemy*> enemies;
     void createWindow();
     void createShip();
@@ -49,6 +56,8 @@ public:
     void Enemies();
 
     void createEnemy();
+
+    void Levelup();
 };
 
 

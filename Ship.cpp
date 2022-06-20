@@ -45,6 +45,16 @@ void Ship::hitme(int damage)
     if(currenthealth<=0)
         currenthealth=0;
 }
+void Ship::givestats(float speed, float bulletcd, float healtha)
+{
+    bulletcooldown -=bulletcd;
+    if(bulletcooldown<=20)
+        bulletcooldown=20;
+    currenthealth += healtha;
+    if(currenthealth>=100)
+        currenthealth=100;
+    Ship_speed+=speed;
+}
 const bool Ship::canshoot()
 {
     if(currentbulletcooldown>=bulletcooldown)
@@ -80,4 +90,11 @@ const sf::FloatRect Ship::Boundaries() const {
 void Ship::setPos(const float x, const float y) {
     sprite.setPosition(x,y);
 }
-
+float Ship::getSpeed()
+{
+    return Ship_speed;
+}
+float Ship::getCd()
+{
+    return bulletcooldown;
+}

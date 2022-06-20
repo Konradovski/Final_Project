@@ -43,6 +43,12 @@ public:
 
     void setPos(const float x, const float y);
 
+    void givestats(float speed, float bulletcd,float health);
+
+
+    float getSpeed();
+
+    float getCd();
 };
 
 

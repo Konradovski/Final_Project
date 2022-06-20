@@ -31,7 +31,7 @@ void Board::createWindow()
     window->setFramerateLimit(144);
     window->setVerticalSyncEnabled(false);
 }
-void Board::Stars() // zacina grę przy wgraniu tekstury tła jakiejkolwiek, pewnie przez zrobienie tego w peli
+void Board::Stars()
 {
     Background.loadFromFile("../Teksturki/background.jpg");
     sf::Sprite BackgroundSprite(Background);
@@ -57,7 +57,7 @@ void Board::play()
     }
 }
 void Board::createShip() {
-    ship= new Ship();
+    ship = new Ship();
 }
 void Board::createEnemy(){
     SpawnerTimer=50;
@@ -104,6 +104,7 @@ void Board::update()
             this->ammo.erase(this->ammo.begin());
         }
     }
+    Levelup();
     pointcounter();
     ship->update();
     Enemies();
@@ -111,6 +112,7 @@ void Board::update()
 void Board::render()
 {
     window->clear(sf::Color(18,19,70));
+
     ship->render(*window);
 
     for(auto *ammo : ammo)
@@ -121,11 +123,19 @@ void Board::render()
 
     window->draw(tekst);
 
+    window->draw(LEVEL);
+
     window->draw(durability);
 
     window->draw(health);
 
     window->draw(currenthealth);
+
+    window->draw(Speed);
+
+    window->draw(Cd);
+
+    window->draw(Title);
 
     if(ship->getShipcurrentHealth()<=0)
     {
@@ -152,6 +162,7 @@ void Board::createTextures() {
     }
 }
 void Board::Enemies() {
+    level=exp/150+1;
     CurrentSpawnerTimer+=0.5;
     if(CurrentSpawnerTimer>= SpawnerTimer)
     {
@@ -165,7 +176,7 @@ void Board::Enemies() {
         enemies[i]->update();
          if(enemies[i]->Boundaries().intersects(ship->Boundaries()))
             {
-               ship->hitme(20);
+               ship->hitme(10+level*10);
                //std::cout<<ship->getShipcurrentHealth();
                 delete enemies.at(i);
                 enemies.erase(enemies.begin()+i);
@@ -176,7 +187,7 @@ void Board::Enemies() {
             {
                 if(enemies[i]->Expcounter()>7)
                 {
-                    ship->currenthealth+=5;
+                    ship->currenthealth+=(10-level);
                     if(ship->currenthealth>ship->health)
                         ship->currenthealth=ship->health;
                 }
@@ -190,7 +201,7 @@ void Board::Enemies() {
         {
             if(enemies[i]->Boundaries().top > window->getSize().y && !enemies[i]->Boundaries().width==0)
             {
-                ship->hitme(10);
+                ship->hitme(5+level*5);
                 delete enemies.at(i);
                enemies.erase(enemies.begin()+i);
 
@@ -201,18 +212,40 @@ void Board::Enemies() {
 void Board::interface() {
     if(!font.loadFromFile("../Teksturki/Font.ttf"))
         std::cout<<"FONT CANT LOAD"<<std::endl;
+
     tekst.setFont(font);
     tekst.setCharacterSize(40);
-    tekst.setPosition(20,50);
+    tekst.setPosition(window->getSize().x -300,80);
     tekst.setFillColor(sf::Color::Magenta);
     tekst.setOutlineThickness(2);
     tekst.setOutlineColor(sf::Color::Yellow);
 
+    Cd.setFont(font);
+    Cd.setCharacterSize(40);
+    Cd.setPosition(20,50);
+    Cd.setFillColor(sf::Color::Magenta);
+    Cd.setOutlineThickness(2);
+    Cd.setOutlineColor(sf::Color::Yellow);
+
+    Speed.setFont(font);
+    Speed.setCharacterSize(40);
+    Speed.setPosition(20,100);
+    Speed.setFillColor(sf::Color::Magenta);
+    Speed.setOutlineThickness(2);
+    Speed.setOutlineColor(sf::Color::Yellow);
+
+    LEVEL.setFont(font);
+    LEVEL.setCharacterSize(60);
+    LEVEL.setPosition(window->getSize().x -250,15);
+    LEVEL.setFillColor(sf::Color::Magenta);
+    LEVEL.setOutlineThickness(2);
+    LEVEL.setOutlineColor(sf::Color::Yellow);
+
     health.setSize((sf::Vector2f(300,25)));
-    health.setFillColor(sf::Color::Red);
+    health.setFillColor(sf::Color::Magenta);
     health.setPosition(sf::Vector2f(200,20));
-    health.setOutlineColor(sf::Color::White);
-    health.setOutlineThickness(5);
+    health.setOutlineColor(sf::Color::Yellow);
+    health.setOutlineThickness(3);
 
     Defeat.setFont(font);
     Defeat.setCharacterSize(100);
@@ -222,6 +255,14 @@ void Board::interface() {
     Defeat.setString("Your galaxy ship has crushed\n        Your yourney is over!");
     Defeat.setOutlineThickness(2);
     Defeat.setOutlineColor(sf::Color::Cyan);
+
+    Title.setFont(font);
+    Title.setCharacterSize(100);
+    Title.setPosition(window->getSize().x/3.f -Title.getGlobalBounds().width/2.f,0);
+    Title.setFillColor(sf::Color::Red);
+    Title.setString("Space Shooter!");
+    Title.setOutlineThickness(2);
+    Title.setOutlineColor(sf::Color::Cyan);
 
     durability.setFont(font);
     durability.setCharacterSize(40);
@@ -235,16 +276,34 @@ void Board::interface() {
     currenthealth.setFillColor(sf::Color(20,20,20,180));
 }
 void Board::pointcounter() {
+
     std::stringstream ss;
-
     ss<<"Score: "<<exp;
+    tekst.setString(ss.str());
 
-tekst.setString(ss.str());
+    std::stringstream aa;
+    aa<<"Level: "<<level;
+    LEVEL.setString(aa.str());
+
+    std::stringstream bb;
+    bb<<"Shoot Cooldown: "<<ship->getCd();
+    Cd.setString(bb.str());
+
+    std::stringstream cc;
+    cc<<"Ship speed: "<<ship->getSpeed();
+    Speed.setString(cc.str());
+
 
 float Currentpercenthealth = (ship->getShipcurrentHealth()/ship->getShipHealth());
-//std::cout<<"Currentpercenthealth = "<<Currentpercenthealth;
-//std::cout<<"ShipcurrentHealth="<<ship->getShipcurrentHealth();
-//std::cout<<"ShipHealth="<<ship->getShipHealth();
+
 health.setSize((sf::Vector2f(300 *Currentpercenthealth,health.getSize().y)));
+}
+
+void Board::Levelup() {
+        if(exp%150>0 && exp%150<10 && exp>100)
+        {
+            exp+=10;
+            ship->givestats(0.5,2.5,50);
+        }
 }
 

@@ -26,11 +26,11 @@ zderzeń a także zmaksymalizuj straty w okrętach galaktycznych przeciwnika.
 
 Statek posiada trwałość 100.
 
-Każde zderzenie z wrogiem to 20 punktów utraconych trwałości statku.
+Każde zderzenie z wrogiem to utracona trwałość statku zależna od Twojego poziomu.
 
-Każde przejście wroga za Twoją linię oporu to 10 punktów utraconej trwałości statku.
+Każde przejście wroga za Twoją linię oporu to utracona trwałość statku zależna od Twojego poziomu.
 
-Statek regeneruje 5 punktów zdrowia za każde zestrzelenie dużego statku.
+Statek regeneruje punkty zdrowia zależne od poziomu za każde zestrzelenie dużego statku.
 ## Punktacja
 Każdy zestrzelony przeciwnik dodaje różną ilość punktów doświadczenia w zależności od jego prędkości bojowej 
 ## Authors
