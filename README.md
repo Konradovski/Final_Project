@@ -1,5 +1,5 @@
 
-# Space shooter 2022 263741
+# Space shooter 2022
 
 Witam w grze wzorowanej na klasycznej grze z 1979 roku zatytułowanej "space invaders".
 Zostałeś kapitanem galaktycznego statku, który został zaatakowany przez wrogich najeźdźców z kosmosu. Twoim zadaniem jest obronić się przed atakiem i zestrzelić jak najwięcej wrogich obiektów.
@@ -35,5 +35,5 @@ Statek regeneruje punkty zdrowia zależne od poziomu za każde zestrzelenie duż
 Każdy zestrzelony przeciwnik dodaje różną ilość punktów doświadczenia w zależności od jego prędkości bojowej 
 ## Authors
 
-- Konrad Tokarz 263741
+- Konrad Tokarz 
 
